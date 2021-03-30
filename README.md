@@ -17,5 +17,14 @@ ng generate service employee --skip-tests=true
 ###Card Snippits
 https://www.bootdey.com/snippets/view/bs4-contact-cards
 
+###Before start create database in MySQL 
+`employeemanagerdb`
+
+###To start app
+`npm install`
+`"C:\Program Files\nodejs\node.exe" "C:\Program Files\nodejs\node_modules\npm\bin\npm-cli.js" install --scripts-prepend-node-path=auto`
+`employeemanager\angularapp>ng serve`
+http://localhost:4200
+
 ###Dashboard
 ![img.png](img.png)
