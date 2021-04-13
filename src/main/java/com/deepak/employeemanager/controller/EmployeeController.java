@@ -2,6 +2,7 @@ package com.deepak.employeemanager.controller;
 
 import com.deepak.employeemanager.model.Employee;
 import com.deepak.employeemanager.service.EmployeeService;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +14,7 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import java.util.List;
 
 @RestController
-@RequestMapping(value = "/api/employee", produces = "application/json")
+@RequestMapping(value = "/v1/employee", produces = "application/json")
 @CrossOrigin("*")
 @EnableWebMvc
 public class EmployeeController {
@@ -39,12 +40,14 @@ public class EmployeeController {
     @PostMapping(value = "/add")
     public ResponseEntity<?> addEmployee(@RequestBody Employee employee) {
         Employee newEmployee = employeeService.addEmployee(employee);
+        LOGGER.info("new employee created : " + newEmployee);
         return new ResponseEntity<>(newEmployee, HttpStatus.CREATED);
     }
 
     @PutMapping(value = "/update")
     public ResponseEntity<?> updateEmployee(@RequestBody Employee employee) {
         Employee updateEmployee = employeeService.updateEmployee(employee);
+        LOGGER.info("employee by id " + updateEmployee.getId() + " has been updated!");
         return new ResponseEntity<>(updateEmployee, HttpStatus.OK);
     }
 

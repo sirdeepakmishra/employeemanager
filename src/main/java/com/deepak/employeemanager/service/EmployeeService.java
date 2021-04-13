@@ -1,22 +1,24 @@
 package com.deepak.employeemanager.service;
 
 
-import com.deepak.employeemanager.exception.EmptyDataBaseException;
 import com.deepak.employeemanager.exception.UserNotFoundException;
 import com.deepak.employeemanager.model.Employee;
 import com.deepak.employeemanager.repo.EmployeeRepo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
-import java.util.function.Supplier;
+import java.util.function.Consumer;
 
 @Service
-public class EmployeeService {
+public class EmployeeService implements UserDetailsService {
 
     private final EmployeeRepo employeeRepo;
 
@@ -25,13 +27,16 @@ public class EmployeeService {
         this.employeeRepo = employeeRepo;
     }
 
+    /*Authentication*/
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        //Get the user form Database
+        return new User("admin", "password", new ArrayList<>());
+    }
 
     public List<Employee> findEmployees() {
-       /* Supplier<Employee> s = () -> new Employee();
-        List<String> list1 = (List<String>) Arrays.asList(employeeRepo.findAll());*/
-        return  employeeRepo.findAll();
-
-
+        return Optional.of(employeeRepo.findAll())
+                .orElseThrow(() -> new IllegalStateException("Couldn't find any employee!"));
     }
 
     public Employee findEmployeeById(Long id) {
@@ -42,16 +47,17 @@ public class EmployeeService {
     public Employee addEmployee(Employee employee) {
         employee.setEmployeeCode(UUID.randomUUID().toString());
         return employeeRepo.save(employee);
-
     }
 
     public Employee updateEmployee(Employee employee) {
-        return employeeRepo.save(employee);
+        Consumer<Employee> employeeToUpdate = updateObject -> employeeRepo.save(employee);
+        Optional.ofNullable(findEmployeeById(employee.getId())).ifPresent(employeeToUpdate);
+        return employee;
     }
-
 
     public void deleteEmployeeById(Long id) {
-
-        employeeRepo.deleteById(id);
+        Consumer<Employee> employeeToDelete = deleteObject -> employeeRepo.deleteById(id);
+        Optional.ofNullable(findEmployeeById(id)).ifPresent(employeeToDelete);
     }
+
 }

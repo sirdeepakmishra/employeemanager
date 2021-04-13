@@ -5,7 +5,7 @@
         "email": "sandeepKumar@gmail.com",
         "jobTitle": "java developer ",
         "phone": "541-35-1879",
-        "imageUrl": "https://bootdey.com/img/Content/avatar/avatar7.png",
+        "imageUrl": "https://bootdey.com/img/Content/avatar/avatar7.png"
         
     },
     {
@@ -14,7 +14,7 @@
         "email": "shwetahumari@booking.com",
         "jobTitle": "Office Assistant ",
         "phone": "121-231-312",
-        "imageUrl": "https://bootdey.com/img/Content/avatar/avatar3.png",
+        "imageUrl": "https://bootdey.com/img/Content/avatar/avatar3.png"
         
     },
     {
@@ -23,7 +23,7 @@
         "email": "deepakmishra@gmail.com",
         "jobTitle": "software developer",
         "phone": "1231232112",
-        "imageUrl": "https://bootdey.com/img/Content/avatar/avatar6.png",
+        "imageUrl": "https://bootdey.com/img/Content/avatar/avatar6.png"
         
     },
     {
@@ -32,7 +32,14 @@
         "email": "ravikumar0123@gmail.com",
         "jobTitle": "UI/UX development",
         "phone": "986-543-4567",
-        "imageUrl": "https://bootdey.com/img/Content/avatar/avatar5.png",
+        "imageUrl": "https://bootdey.com/img/Content/avatar/avatar5.png"
         
+    },
+    {
+        "name": "Mukesh kumar ",
+        "email": "angular developer",
+        "jobTitle": "UI/angular",
+        "phone": "123-123-123",
+        "imageUrl": "https://bootdey.com/img/Content/avatar/avatar7.png"
     }
 ]
