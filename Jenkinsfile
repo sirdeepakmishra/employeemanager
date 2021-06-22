@@ -1,27 +1,30 @@
+def gv
 pipeline {
 	agent any
 	tools {
 		maven 'Maven'
 	}
 	parameters {
-		//string(name: 'VERSION', defaultValue: '', description: 'version to deploying on prod')
-		choice(name: 'VERSION', choices: ['1.1.0', '1.2.0', '1.3.0'], description: 'select choice')
-		booleanParam(name: 'executeTests', defaultValue: true, description: 'boolean Params for execute tests')
+		choice(name: 'VERSION', choices: ['1.1', '1.2', '1.3'], description: 'select choice')
+		booleanParam(name: 'executeTests', defaultValue: true, description: 'Do you want to execute tests')
 	}
 	environment {
-		NEW_VERSION = '1.1'
 		SERVER_CREDENTIALS = credentials('server-user')
 	}
 	stages {
 
+		stage("init") {
+			steps {
+				script {
+					gv = load "script.groovy"
+				}
+			}
+		}
+
 		stage("build") {
 			steps {
-				echo "BUILD the application pipeline...with version ${NEW_VERSION}"
-				echo 'mvn install'
-				//sh 'mvn install'
 				script {
-					def test = 2 + 2 > 3 ? 'cool' : 'not cool'
-					echo test
+					gv.buildApp()
 				}
 			}
 		}
@@ -34,25 +37,24 @@ pipeline {
 				}
 			}
 			steps {
-				echo 'TEST the application pipeline.....'
-				echo "deploying version... ${params.VERSION}"
+				script {
+					gv.testApp()
+				}
 			}
 		}
 
-		stage("deploy1") {
-			steps { 
-				echo "DEPLOY 1 the application pipeline...with credentials ${SERVER_CREDENTIALS}"
-				//sh "${SERVER_CREDENTIALS}"
+		stage("deploy") {
+			steps {
+				script {
+					gv.deployApp()
+				}
 			}
 		}
 
 		stage("deploy2") {
-			steps { 
-				echo "DEPLOY 2...."
-				withCredentials([
-					usernamePassword(credentials: 'server-user', usernameVariable: USER, passwordVariable: PWD)
-				]) {    echo "USERNAME and PASSWORD : ${USER} and ${PWD}"
-					//sh "some script ${USER} and ${PWD}"
+			steps {
+				script {
+					gv.deployApp2()
 				}
 			}
 		}
