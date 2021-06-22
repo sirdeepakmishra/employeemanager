@@ -4,9 +4,9 @@ pipeline {
 		maven 'Maven'
 	}
 	parameters {
-		string(name: 'VERSION', defaultValue: '', description: 'version to deploying on prod')
-		//choice(name: 'VERSION', choices['1.1', '1.2', '1.3'], description: 'select choice')
-		booleanParam(name: 'executeTests', defaultValue: false, description: 'boolean Params for execute tests')
+		//string(name: 'VERSION', defaultValue: '', description: 'version to deploying on prod')
+		choice(name: 'VERSION', choices: ['1.1.0', '1.2.0', '1.3.0'], description: 'select choice')
+		booleanParam(name: 'executeTests', defaultValue: true, description: 'boolean Params for execute tests')
 	}
 	environment {
 		NEW_VERSION = '1.1'
@@ -16,7 +16,7 @@ pipeline {
 
 		stage("build") {
 			steps {
-				echo "building the application pipeline...with version ${NEW_VERSION}"
+				echo "BUILD the application pipeline...with version ${NEW_VERSION}"
 				echo 'mvn install'
 				//sh 'mvn install'
 				script {
@@ -34,14 +34,14 @@ pipeline {
 				}
 			}
 			steps {
-				echo 'testing the application pipeline.....'
+				echo 'TEST the application pipeline.....'
 				echo "deploying version... ${params.VERSION}"
 			}
 		}
 
 		stage("deploy1") {
-			steps { echo "DEPLOY 1 ...."
-				echo "deploying the application pipeline...with credentials ${SERVER_CREDENTIALS}"
+			steps { 
+				echo "DEPLOY 1 the application pipeline...with credentials ${SERVER_CREDENTIALS}"
 				//sh "${SERVER_CREDENTIALS}"
 			}
 		}
