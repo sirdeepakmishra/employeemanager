@@ -12,10 +12,10 @@ def deployApp() {
 }
 
 def deployApp2() {
-	echo 'deplying 2 the application...'
+	echo 'deploying 2 the application...'
 	echo "deploying 2 version ${params.VERSION}"
 	withCredentials([
-		usernamePassword(credentials: 'server-user', usernameVariable: USER, passwordVariable: PWD)
+		usernamePassword(credentials: 'server-credentials', usernameVariable: USER, passwordVariable: PWD)
 	]) {
 		echo "some script ${USER} and ${PWD}"
 	}
