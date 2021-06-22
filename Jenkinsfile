@@ -39,20 +39,20 @@ pipeline {
 			}
 		}
 
-		stage("deploy") {
-			steps {
+		stage("deploy1") {
+			steps { echo "DEPLOY 1 ...."
 				echo "deploying the application pipeline...with credentials ${SERVER_CREDENTIALS}"
-				sh "${SERVER_CREDENTIALS}"
+				//sh "${SERVER_CREDENTIALS}"
 			}
 		}
 
 		stage("deploy2") {
-			steps {
-				echo "deploying2 the application..."
+			steps { 
+				echo "DEPLOY 2...."
 				withCredentials([
 					usernamePassword(credentials: 'server-user', usernameVariable: USER, passwordVariable: PWD)
-				]) {    echo 'deploy2 some script'
-					sh "some script ${USER} and ${pwd}"
+				]) {    echo "USERNAME and PASSWORD : ${USER} and ${PWD}"
+					//sh "some script ${USER} and ${PWD}"
 				}
 			}
 		}
