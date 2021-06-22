@@ -5,7 +5,7 @@ pipeline {
 	}
 	parameters {
 		string(name: 'VERSION', defaultValue: '', description: 'version to deploying on prod')
-		choice(name: 'VERSION', choices['1.1', '1.2', '1.3'], description: 'select choice')
+		//choice(name: 'VERSION', choices['1.1', '1.2', '1.3'], description: 'select choice')
 		booleanParam(name: 'executeTests', defaultValue: false, description: 'boolean Params for execute tests')
 	}
 	environment {
@@ -18,7 +18,7 @@ pipeline {
 			steps {
 				echo "building the application pipeline...with version ${NEW_VERSION}"
 				echo 'mvn install'
-				sh 'mvn install'
+				//sh 'mvn install'
 				script {
 					def test = 2 + 2 > 3 ? 'cool' : 'not cool'
 					echo test
@@ -51,7 +51,7 @@ pipeline {
 				echo "deploying2 the application..."
 				withCredentials([
 					usernamePassword(credentials: 'server-user', usernameVariable: USER, passwordVariable: PWD)
-				]) {
+				]) {    echo 'deploy2 some script'
 					sh "some script ${USER} and ${pwd}"
 				}
 			}
