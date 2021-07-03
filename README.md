@@ -1,30 +1,37 @@
-# EmployeeManagerApp
 
-This project was created with :
-####Angular version 11.2.6
-####springboot version 2.4.4 on openjdk11
-####MySQL
+# Implementation of JWT
 
-###Ports
+Implementation of JWT with Spring securtiy in a stateless session
 
-`java=8090`
-`angular=4200`
-`DataBaseName = employeemanagerdb`
 
-####Skipping the tests
-ng generate service employee --skip-tests=true
+## API Reference
 
-###Card Snippits
-https://www.bootdey.com/snippets/view/bs4-contact-cards
+#### Get authenticate first
 
-###Before start create database in MySQL 
-`employeemanagerdb`
+```http
+  POST http://localhost:8090/authenticate
+```
 
-###To start app
-`npm install`
-`"C:\Program Files\nodejs\node.exe" "C:\Program Files\nodejs\node_modules\npm\bin\npm-cli.js" install --scripts-prepend-node-path=auto`
-`employeemanager\angularapp>ng serve`
-http://localhost:4200
+| key |Value     | Description                |
+| :-------- | :------- | :------------------------- |
+| `username` | `admin` | **Required** API key |
+| `password` | `password` | *Body* -> *raw* -> *json*|
 
-###Dashboard
-![img.png](img.png)
+#### Get all
+
+```http
+  GET http://localhost:8090/all
+```
+
+| key | value    | Description                       |
+| :-------- | :------- | :-------------------------------- |
+| `Authorization`      | `Bearer token` | **token** : paste your jwt token here |
+
+
+
+
+## Authors
+
+- [@deepakmishra](https://github.com/sirdeepakmishra/employeemanager)
+
+  
